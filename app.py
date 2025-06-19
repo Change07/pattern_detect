@@ -13,7 +13,7 @@ def index():
     stocks = {}
 
     with open('datasets/companies.csv') as file:
-        for row in csv.reader(file):
+        for row in csv.reader(file): 
             stocks[row[0]] = {'company': row[1]}
 
     if pattern:
@@ -49,4 +49,4 @@ def snapshot():
             
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run()
