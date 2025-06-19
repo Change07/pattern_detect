@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{font-family: Arial, Helvetica, sans-serif; margin: 20px;}
+            td{padding: 8px;}
+            .bullish{background: green; color: white;}
+            .bearish{background: red; color: white;}
+        </style>
+    </head>
+    <body>
+        <h1>Candlestick Scanner</h1>
+
+        <form action="">
+            <select name="pattern">
+                {% for pattern in patterns %}
+                <option value="{{ pattern }}" {% if pattern == detected_pattern %} selected = selected {% endif %}>{{ patterns[pattern] }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="scan">
+        </form>
+
+        <table>
+            <tr>
+                <th>
+                    Symbol
+                </th>
+                <th>
+                    Company name
+                </th>
+                <th>
+                    Signal
+                </th>
+            </tr>
+            {% for stock in stocks %}
+                {% if stocks[stock][detected_pattern] %}
+                    <tr>
+                        <td>{{stock}}</td>
+                        <td>{{stocks[stock]['company']}}</td>
+                        <td class="{{stocks[stock][detected_pattern]}}">{{stocks[stock][detected_pattern]}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <img src="https://finviz.com/chart.ashx?t={{ stock }}">
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </body>
+</html>
